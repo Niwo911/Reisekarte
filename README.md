@@ -34,9 +34,9 @@ Der einfachste Weg, ohne sich mit Terminal-Befehlen auseinandersetzen zu müssen
 1. **Repo herunterladen** ([ZIP-Download](https://github.com/Niwo911/Reisekarte/archive/refs/heads/main.zip)) und entpacken
 2. **Eigene Fotos** in den Ordner `fotos/` legen (oder erstmal mit den mitgelieferten Demo-Bildern testen)
 3. **Doppelklick auf:**
-   - 🪟 **Windows:** `Reisekarte starten.bat`
-   - 🍎 **macOS:** `Reisekarte starten.command`
-   - 🐧 **Linux:** `Reisekarte starten.command` (einmalig im Terminal `chmod +x` ausführen)
+   - 🪟 **Windows:** `Windows_Reisekarte_erstellen.bat`
+   - 🍎 **macOS:** `Mac_Linux_Reisekarte_erstellen.command`
+   - 🐧 **Linux:** `Mac_Linux_Reisekarte_erstellen.command` (einmalig im Terminal `chmod +x` ausführen)
 
 Beim ersten Start werden Python-Dependencies automatisch installiert (~1 Min). Danach öffnet sich die fertige Karte direkt im Browser.
 
@@ -231,7 +231,7 @@ Erste Tile-Ladung braucht Internet. Browser neu laden oder Internetverbindung pr
 Rechtsklick → *Öffnen mit* → Browser deiner Wahl wählen.
 
 **Wrapper-Skript schließt sich sofort wieder (Windows)**
-Im Datei-Explorer in der Adresszeile `cmd` eingeben → Enter → dann `Reisekarte starten.bat` eintippen → Enter. So bleibt das Fenster offen und zeigt eventuelle Fehler.
+Im Datei-Explorer in der Adresszeile `cmd` eingeben → Enter → dann `Windows_Reisekarte_erstellen.bat` eintippen → Enter. So bleibt das Fenster offen und zeigt eventuelle Fehler.
 
 ---
 
@@ -253,8 +253,8 @@ python tools/generate_demo_fotos.py
 ```
 Reisekarte/
 ├── foto_karte.py              # Hauptskript
-├── Reisekarte starten.bat     # Doppelklick-Starter Windows
-├── Reisekarte starten.command # Doppelklick-Starter macOS / Linux
+├── Windows_Reisekarte_erstellen.bat     # Doppelklick-Starter Windows
+├── Mac_Linux_Reisekarte_erstellen.command # Doppelklick-Starter macOS / Linux
 ├── requirements.txt           # Python-Dependencies
 ├── README.md                  # diese Datei
 ├── LICENSE                    # MIT
