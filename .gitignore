@@ -1,0 +1,36 @@
+# Generierte Karte – wird vom Skript bei jedem Lauf neu erzeugt
+reisekarte.html
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtuelle Environments
+venv/
+.venv/
+env/
+.env/
+.test-venv/
+
+# Macher-Artefakte
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Privat: alle Fotos im fotos/-Ordner ignorieren …
+fotos/*
+
+# … außer den mitgelieferten Demo-Bildern
+!fotos/.gitkeep
+!fotos/01_*.jpg
+!fotos/02_*.jpg
+!fotos/03_*.jpg
+!fotos/04_*.jpg
+!fotos/05_*.jpg
+!fotos/06_*.jpg
+!fotos/07_*.jpg
