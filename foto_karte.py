@@ -1178,16 +1178,28 @@ def get_photo_data(image_path: Path, thumb_size: int = 720) -> dict | None:
     """Liest GPS, Zeitstempel und erstellt Thumbnail als base64-String."""
     try:
         img = Image.open(image_path)
-        exif = img._getexif()
+
+        # Moderne Pillow-API: getexif() funktioniert für JPEG, HEIC, PNG, TIFF.
+        # Die alte _getexif()-Methode existiert nur für JPEG und schlägt
+        # bei HEIC-Dateien (HeifImageFile) fehl.
+        exif = img.getexif()
         if not exif:
             return None
 
+        # Top-Level-EXIF (DateTime, etc.)
         exif_data = {TAGS.get(k, k): v for k, v in exif.items()}
-        gps_info = exif_data.get("GPSInfo")
-        if not gps_info:
+
+        # GPS-IFD liegt in einem Sub-IFD und muss separat ausgelesen werden.
+        # Das ist die einheitliche Methode, die für alle Formate funktioniert.
+        try:
+            gps_ifd = exif.get_ifd(0x8825)  # 0x8825 = GPSInfo IFD-Tag
+        except (AttributeError, KeyError):
+            gps_ifd = exif_data.get("GPSInfo")
+
+        if not gps_ifd:
             return None
 
-        gps = {GPSTAGS.get(k, k): v for k, v in gps_info.items()}
+        gps = {GPSTAGS.get(k, k): v for k, v in gps_ifd.items()}
         if "GPSLatitude" not in gps or "GPSLongitude" not in gps:
             return None
 
@@ -1199,6 +1211,17 @@ def get_photo_data(image_path: Path, thumb_size: int = 720) -> dict | None:
             lon = -lon
 
         timestamp_str = exif_data.get("DateTimeOriginal") or exif_data.get("DateTime")
+
+        # Bei HEIC liegt DateTimeOriginal oft im EXIF-Sub-IFD (0x8769)
+        if not timestamp_str:
+            try:
+                exif_sub_ifd = exif.get_ifd(0x8769)
+                if exif_sub_ifd:
+                    sub_data = {TAGS.get(k, k): v for k, v in exif_sub_ifd.items()}
+                    timestamp_str = sub_data.get("DateTimeOriginal") or sub_data.get("DateTimeDigitized")
+            except (AttributeError, KeyError):
+                pass
+
         timestamp = (
             datetime.strptime(timestamp_str, "%Y:%m:%d %H:%M:%S")
             if timestamp_str

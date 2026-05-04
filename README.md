@@ -16,6 +16,7 @@ Ein Python-Skript, das die GPS-EXIF-Daten deiner Fotos liest und daraus eine ele
 - 🛰 **Karten-Stil-Toggle**: Dark-Map ↔ Satellitenbild
 - 📦 **Self-contained**: Eine einzelne `reisekarte.html`, alle Fotos als Base64 eingebettet
 - 🔒 **Lokal-only**: Skript greift ausschließlich auf den `fotos/`-Ordner im Repo zu
+- 🖱 **Doppelklick-Start**: Wrapper-Skripte für Windows, macOS und Linux – kein Terminal nötig
 
 ## Voraussetzungen
 
@@ -23,6 +24,27 @@ Ein Python-Skript, das die GPS-EXIF-Daten deiner Fotos liest und daraus eine ele
 - **Desktop oder Laptop** (Windows, macOS, Linux) – nicht für Smartphone optimiert
 - Eigene Fotos mit **GPS-EXIF-Daten** (Standortzugriff bei der Aufnahme aktiv)
 - Aktueller Browser (Chrome, Firefox, Safari, Edge)
+
+---
+
+## ⚡ Schnellstart per Doppelklick (empfohlen)
+
+Der einfachste Weg, ohne sich mit Terminal-Befehlen auseinandersetzen zu müssen.
+
+1. **Repo herunterladen** ([ZIP-Download](https://github.com/Niwo911/Reisekarte/archive/refs/heads/main.zip)) und entpacken
+2. **Eigene Fotos** in den Ordner `fotos/` legen (oder erstmal mit den mitgelieferten Demo-Bildern testen)
+3. **Doppelklick auf:**
+   - 🪟 **Windows:** `Reisekarte starten.bat`
+   - 🍎 **macOS:** `Reisekarte starten.command`
+   - 🐧 **Linux:** `Reisekarte starten.command` (einmalig im Terminal `chmod +x` ausführen)
+
+Beim ersten Start werden Python-Dependencies automatisch installiert (~1 Min). Danach öffnet sich die fertige Karte direkt im Browser.
+
+> **Falls Python fehlt**, zeigt das Skript dir den passenden Installationsweg an.
+
+> **macOS-Hinweis:** Beim ersten Doppelklick auf `.command` erscheint eventuell „Datei aus dem Internet". Mit „Öffnen" bestätigen. Falls Gatekeeper komplett blockiert: Rechtsklick → „Öffnen" → „Öffnen".
+
+> **Windows-Hinweis:** SmartScreen kann beim ersten Mal warnen. Auf „Weitere Informationen" klicken → „Trotzdem ausführen".
 
 ---
 
@@ -64,11 +86,11 @@ Damit HEIC-Fotos vom iPhone gelesen werden können, einmalig:
 brew install libheif
 ```
 
-(Ohne diesen Schritt scheitert manchmal die `pillow-heif`-Installation in Schritt 3 weiter unten.)
+(Ohne diesen Schritt scheitert manchmal die `pillow-heif`-Installation.)
 
 ---
 
-## ⚡ Schnellstart
+## 🛠 Manueller Start (für Entwickler)
 
 ```bash
 # 1. Repo klonen
@@ -100,31 +122,9 @@ git clone https://github.com/Niwo911/Reisekarte.git
 cd Reisekarte
 ```
 
-**Ohne Git:** Auf GitHub oben rechts auf den grünen **Code**-Button klicken → **Download ZIP** → ZIP entpacken und mit dem Terminal in den entpackten Ordner wechseln.
+**Ohne Git:** Auf GitHub oben rechts auf den grünen **Code**-Button klicken → **Download ZIP** → ZIP entpacken.
 
-### 2. Python-Umgebung vorbereiten
-
-Empfohlen ist ein virtuelles Environment, damit die Dependencies isoliert bleiben:
-
-```bash
-python3 -m venv venv
-source venv/bin/activate          # macOS / Linux
-# oder unter Windows:
-venv\Scripts\activate
-```
-
-### 3. Dependencies installieren
-
-```bash
-pip install -r requirements.txt
-```
-
-Installiert wird:
-- `Pillow` – Bildverarbeitung & EXIF
-- `Jinja2` – HTML-Templating
-- `pillow-heif` – HEIC-/HEIF-Support (iPhone-Fotos)
-
-### 4. Eigene Fotos einfügen
+### 2. Eigene Fotos einfügen
 
 Lege deine Fotos in den Ordner **`fotos/`** (im Repo-Verzeichnis). Du kannst Unterordner anlegen – das Skript durchsucht den Ordner rekursiv.
 
@@ -134,25 +134,25 @@ Die mitgelieferten Demo-Bilder kannst du
 
 > ✅ Nur der `fotos/`-Ordner wird gelesen. Das Skript greift auf **keinen** anderen Pfad auf deinem Computer zu und schreibt **nur** die `reisekarte.html` daneben.
 
-### 5. Skript ausführen
+### 3. Skript starten
 
+**Empfohlen:** Doppelklick auf das passende Wrapper-Skript (siehe Schnellstart oben).
+
+**Manuell im Terminal:**
 ```bash
 python foto_karte.py
 ```
 
-Das Skript zeigt den Fortschritt und meldet am Ende, wie viele Fotos verteilt auf wie viele Tage in die Karte aufgenommen wurden.
-
-Optional: Anderen Ordner als Quelle nutzen (z. B. zum Testen, ohne den `fotos/`-Ordner anzufassen):
-
+Optional: anderen Ordner als Quelle nutzen:
 ```bash
 python foto_karte.py /pfad/zu/anderem/ordner
 ```
 
-### 6. Karte öffnen
+### 4. Karte öffnen und nutzen
 
-Doppelklick auf die neu erzeugte **`reisekarte.html`** öffnet sie im Standard-Browser.
+Doppelklick auf **`reisekarte.html`** öffnet sie im Browser.
 
-**Bedienung im Browser:**
+**Bedienung:**
 - `←` / `→` – vorheriges / nächstes Foto
 - `Leertaste` – Auto-Play starten/stoppen
 - Pfeil-Buttons links/rechts – wie Tastatur
@@ -230,6 +230,9 @@ Erste Tile-Ladung braucht Internet. Browser neu laden oder Internetverbindung pr
 **HTML lässt sich nicht öffnen / öffnet als Quellcode**
 Rechtsklick → *Öffnen mit* → Browser deiner Wahl wählen.
 
+**Wrapper-Skript schließt sich sofort wieder (Windows)**
+Im Datei-Explorer in der Adresszeile `cmd` eingeben → Enter → dann `Reisekarte starten.bat` eintippen → Enter. So bleibt das Fenster offen und zeigt eventuelle Fehler.
+
 ---
 
 ## 🧪 Demo-Bilder neu erzeugen
@@ -250,13 +253,14 @@ python tools/generate_demo_fotos.py
 ```
 Reisekarte/
 ├── foto_karte.py              # Hauptskript
-├── requirements.txt           # Python-Dependencies (für End-User)
+├── Reisekarte starten.bat     # Doppelklick-Starter Windows
+├── Reisekarte starten.command # Doppelklick-Starter macOS / Linux
+├── requirements.txt           # Python-Dependencies
 ├── README.md                  # diese Datei
 ├── LICENSE                    # MIT
 ├── .gitignore
 ├── fotos/                     # ← Hier deine Fotos hineinlegen
 │   ├── 01_brandenburger_tor.jpg
-│   ├── 02_markusplatz.jpg
 │   ├── …
 │   └── 07_big_ben.jpg
 └── tools/
