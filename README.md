@@ -56,7 +56,7 @@ Sonst installieren:
   *Oder von [python.org/downloads](https://www.python.org/downloads/) — wichtig: Beim Installer **„Add Python to PATH"** ankreuzen!*
 - **Linux**: meist schon dabei. Sonst `sudo apt install python3 python3-venv python3-pip`
 
-### 🍎 Nur für macOS mit Apple Silicon (M1/M2/M3/M4)
+### 🍎 Nur für macOS mit Apple Silicon (M1/M2/M3 usw.)
 
 Damit HEIC-Fotos vom iPhone gelesen werden können, einmalig:
 
