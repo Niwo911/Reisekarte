@@ -20,7 +20,7 @@ Ein Python-Skript, das die GPS-EXIF-Daten deiner Fotos liest und daraus eine ele
 
 ## Voraussetzungen
 
-- **Python 3.9** oder neuer
+- **Python 3.10** oder neuer (3.13 empfohlen)
 - **Desktop oder Laptop** (Windows, macOS, Linux) – nicht für Smartphone optimiert
 - Eigene Fotos mit **GPS-EXIF-Daten** (Standortzugriff bei der Aufnahme aktiv)
 - Aktueller Browser (Chrome, Firefox, Safari, Edge)
@@ -68,13 +68,13 @@ Erst prüfen, ob Python schon da ist. Im Terminal eintippen:
 python3 --version
 ```
 
-Erscheint eine Version `Python 3.9.x` oder höher → ✅ fertig, weiter zum Schnellstart.
+Erscheint eine Version `Python 3.10.x` oder höher → ✅ fertig, weiter zum Schnellstart.
 
 Sonst installieren:
 
 - **macOS**: [python.org/downloads](https://www.python.org/downloads/) → Installer für macOS herunterladen und durchklicken
   *Oder mit [Homebrew](https://brew.sh/): `brew install python`*
-- **Windows**: [Microsoft Store](https://apps.microsoft.com/) öffnen → nach „Python 3.12" suchen → Installieren *(einfachster Weg, kein PATH-Setup nötig)*
+- **Windows**: [Microsoft Store](https://apps.microsoft.com/) öffnen → nach „Python 3.13" suchen → Installieren *(einfachster Weg, kein PATH-Setup nötig)*
   *Oder von [python.org/downloads](https://www.python.org/downloads/) — wichtig: Beim Installer **„Add Python to PATH"** ankreuzen!*
 - **Linux**: meist schon dabei. Sonst `sudo apt install python3 python3-venv python3-pip`
 

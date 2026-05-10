@@ -11,25 +11,26 @@ echo "========================================"
 echo ""
 
 # ============================================================
-# 1. Python finden (python3 oder python)
+# 1. Python finden (>= 3.10, neueste Version bevorzugt)
 # ============================================================
 
 PYTHON_CMD=""
-if command -v python3 >/dev/null 2>&1; then
-    PYTHON_CMD="python3"
-elif command -v python >/dev/null 2>&1; then
-    if python -c "import sys; sys.exit(0 if sys.version_info[0] == 3 else 1)" 2>/dev/null; then
-        PYTHON_CMD="python"
+for cmd in python3.13 python3.12 python3.11 python3.10 python3 python; do
+    if command -v "$cmd" >/dev/null 2>&1; then
+        if "$cmd" -c "import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)" 2>/dev/null; then
+            PYTHON_CMD="$cmd"
+            break
+        fi
     fi
-fi
+done
 
 if [ -z "$PYTHON_CMD" ]; then
-    echo "[FEHLER] Python 3 wurde nicht gefunden."
+    echo "[FEHLER] Python 3.10 oder neuer wurde nicht gefunden (3.13 empfohlen)."
     echo ""
     echo "So installierst du es:"
     if [[ "$OSTYPE" == "darwin"* ]]; then
         echo "  - Einfach:       https://www.python.org/downloads/"
-        echo "  - Mit Homebrew:  brew install python"
+        echo "  - Mit Homebrew:  brew install python@3.13"
     else
         echo "  - Ubuntu/Debian: sudo apt install python3 python3-venv python3-pip"
         echo "  - Fedora:        sudo dnf install python3 python3-pip"

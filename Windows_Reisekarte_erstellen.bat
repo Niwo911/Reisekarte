@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 REM Reisekarte – Doppelklick-Starter für Windows
 REM https://github.com/Niwo911/Reisekarte
 
@@ -10,24 +11,31 @@ echo   Reisekarte
 echo ========================================
 echo.
 
-REM Pruefen ob py-Launcher vorhanden ist
-where py >nul 2>nul
-if errorlevel 1 (
-    echo [FEHLER] Python wurde nicht gefunden.
-    echo Bitte aus dem Microsoft Store installieren: "Python 3.12"
+REM Neueste verfuegbare Python-Version (>= 3.10) ueber py-Launcher suchen
+set "PY_CMD="
+for %%v in (3.13 3.12 3.11 3.10) do (
+    if not defined PY_CMD (
+        py -%%v --version >nul 2>nul
+        if not errorlevel 1 set "PY_CMD=py -%%v"
+    )
+)
+
+if not defined PY_CMD (
+    echo [FEHLER] Python 3.10 oder neuer wurde nicht gefunden.
+    echo Bitte aus dem Microsoft Store installieren: "Python 3.13"
     echo Oder von https://www.python.org/downloads/
     pause
     exit /b 1
 )
 
 echo [OK] Python wurde gefunden
-py -3 --version
+%PY_CMD% --version
 echo.
 
 REM venv anlegen falls noetig
 if not exist "venv\Scripts\activate.bat" (
     echo Erstelle virtuelle Umgebung...
-    py -3 -m venv venv
+    %PY_CMD% -m venv venv
     if errorlevel 1 (
         echo [FEHLER] venv konnte nicht erstellt werden.
         pause
